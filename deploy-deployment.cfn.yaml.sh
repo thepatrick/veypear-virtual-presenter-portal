@@ -9,8 +9,7 @@ aws cloudformation deploy \
   --stack-name uploader \
   --parameter-override \
     "HostedZoneId=$HOSTED_ZONE_ID" \
-    "FrontendDomain=$FRONTEND_DOMAIN" \
-    "SecondDomain=$SECOND_DOMAIN" \
+    "AppDomain=$APP_DOMAIN" \
     "FrontendWebsiteCertificate=$FRONTEND_WEBSITE_CERTIFICATE" \
     "BackendJWTAudience=$BACKEND_JWT_AUDIENCE" \
     "BackendLambdaS3Bucket=$BACKEND_LAMBDA_S3_BUCKET" \

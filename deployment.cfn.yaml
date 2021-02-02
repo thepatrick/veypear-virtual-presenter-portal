@@ -6,9 +6,7 @@ Description: "Creates a bucket to store uploaded files"
 Parameters:
   HostedZoneId:
     Type: AWS::Route53::HostedZone::Id
-  FrontendDomain:
-    Type: String
-  SecondDomain:
+  AppDomain:
     Type: String
   FrontendWebsiteCertificate:
     Type: String
@@ -246,8 +244,7 @@ Resources:
         AllowOrigins:
         - "http://localhost:1234"
         - "https://nextdayvideo.com"
-        - !Sub "https://${FrontendDomain}"
-        - !Sub "https://${SecondDomain}"
+        - !Sub "https://${AppDomain}"
 
   BackendAPIDeployment:
     Type: AWS::ApiGatewayV2::Deployment
@@ -425,8 +422,7 @@ Resources:
     Properties:
       DistributionConfig:
         Aliases:
-        - !Ref FrontendDomain
-        - !Ref SecondDomain
+        - !Ref AppDomain
         CacheBehaviors:
         - AllowedMethods:
           - "GET"
@@ -484,26 +480,6 @@ Resources:
           AcmCertificateArn: !Ref 'FrontendWebsiteCertificate'
           MinimumProtocolVersion: 'TLSv1.1_2016'
           SslSupportMethod: 'sni-only'
-  
-  FrontendDNSIPv4:
-    Type: AWS::Route53::RecordSet
-    Properties:
-      AliasTarget:
-        DNSName: !GetAtt "FrontendDistribution.DomainName"
-        HostedZoneId: "Z2FDTNDATAQYW2"
-      HostedZoneId: !Ref "HostedZoneId"
-      Name: !Ref "FrontendDomain"
-      Type: "A"
-
-  FrontendDNSIPv6:
-    Type: AWS::Route53::RecordSet
-    Properties:
-      AliasTarget:
-        DNSName: !GetAtt "FrontendDistribution.DomainName"
-        HostedZoneId: "Z2FDTNDATAQYW2"
-      HostedZoneId: !Ref "HostedZoneId"
-      Name: !Ref "FrontendDomain"
-      Type: "AAAA"
 
   SecondDNSIPv4:
     Type: AWS::Route53::RecordSet
@@ -512,7 +488,7 @@ Resources:
         DNSName: !GetAtt "FrontendDistribution.DomainName"
         HostedZoneId: "Z2FDTNDATAQYW2"
       HostedZoneId: !Ref "HostedZoneId"
-      Name: !Ref "SecondDomain"
+      Name: !Ref "AppDomain"
       Type: "A"
 
   SecondDNSIPv6:
@@ -522,7 +498,7 @@ Resources:
         DNSName: !GetAtt "FrontendDistribution.DomainName"
         HostedZoneId: "Z2FDTNDATAQYW2"
       HostedZoneId: !Ref "HostedZoneId"
-      Name: !Ref "SecondDomain"
+      Name: !Ref "AppDomain"
       Type: "AAAA"
 
 Outputs:

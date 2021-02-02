@@ -12,6 +12,8 @@ Parameters:
     Type: String
   SecondDomain:
     Type: String
+  AppDomain:
+    Type: String
 
 Resources:
   Certificate:
@@ -42,7 +44,16 @@ Resources:
       - !Sub "${BackendDomain}"
       - !Sub "${SecondDomain}"
       ValidationMethod: "DNS"
+  
+  AppCertificate:
+    Type: "AWS::CertificateManager::Certificate"
+    Properties:
+      DomainName: !Sub "${AppDomain}"
+      DomainValidationOptions:
+        - DomainName: !Sub "${AppDomain}"
+          HostedZoneId: !Ref HostedZoneId
+      ValidationMethod: "DNS"
 
 Outputs:
   Certificate:
-    Value: !Ref "Certificate2"
+    Value: !Ref "AppCertificate"

@@ -9,7 +9,8 @@ env:
   HOSTED_ZONE_ID: Z09102521YXWQT2ZKMPP7
   FRONTEND_DOMAIN: lca2021-presenter.aws.nextdayvideo.com.au
   BACKEND_DOMAIN: lca2021-presenter-api.aws.nextdayvideo.com.au
-  SECOND_DOMAIN: upload.aws.nextdayvideo.com.au 
+  SECOND_DOMAIN: upload.aws.nextdayvideo.com.au
+  APP_DOMAIN: upload.aws.nextdayvideo.com.au
 
 jobs:
   deploy-backend-bucket:
