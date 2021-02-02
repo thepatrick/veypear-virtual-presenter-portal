@@ -6,45 +6,10 @@ Description: "Creates a bucket to store uploaded files"
 Parameters:
   HostedZoneId:
     Type: AWS::Route53::HostedZone::Id
-  FrontendDomain:
-    Type: String
-  BackendDomain:
-    Type: String
-  SecondDomain:
-    Type: String
   AppDomain:
     Type: String
 
-Resources:
-  Certificate:
-    Type: "AWS::CertificateManager::Certificate"
-    Properties:
-      DomainName: !Sub "${FrontendDomain}"
-      DomainValidationOptions:
-        - DomainName: !Sub "${FrontendDomain}"
-          HostedZoneId: !Ref HostedZoneId
-        - DomainName: !Sub "${BackendDomain}"
-          HostedZoneId: !Ref HostedZoneId
-      SubjectAlternativeNames:
-      - !Sub "${BackendDomain}"
-      ValidationMethod: "DNS"
-
-  Certificate2:
-    Type: "AWS::CertificateManager::Certificate"
-    Properties:
-      DomainName: !Sub "${FrontendDomain}"
-      DomainValidationOptions:
-        - DomainName: !Sub "${FrontendDomain}"
-          HostedZoneId: !Ref HostedZoneId
-        - DomainName: !Sub "${BackendDomain}"
-          HostedZoneId: !Ref HostedZoneId
-        - DomainName: !Sub "${SecondDomain}"
-          HostedZoneId: !Ref HostedZoneId
-      SubjectAlternativeNames:
-      - !Sub "${BackendDomain}"
-      - !Sub "${SecondDomain}"
-      ValidationMethod: "DNS"
-  
+Resources:  
   AppCertificate:
     Type: "AWS::CertificateManager::Certificate"
     Properties:
