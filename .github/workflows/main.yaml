@@ -7,9 +7,9 @@ on:
 
 env:
   HOSTED_ZONE_ID: Z09102521YXWQT2ZKMPP7
-  FRONTEND_DOMAIN: lca2021-presenter.aws.nextdayvideo.com.au
-  BACKEND_DOMAIN: lca2021-presenter-api.aws.nextdayvideo.com.au
-  SECOND_DOMAIN: upload.aws.nextdayvideo.com.au 
+  FRONTEND_DOMAIN: upload.aws.nextdayvideo.com.au
+  BACKEND_DOMAIN: upload-api.aws.nextdayvideo.com.au
+  #SECOND_DOMAIN: upload.aws.nextdayvideo.com.au 
 
 jobs:
   deploy-backend-bucket:
@@ -145,7 +145,7 @@ jobs:
         BACKEND_LAMBDA_S3_BUCKET: ${{needs.build-backend-lambda.outputs.bucket}}
         BACKEND_LAMBDA_S3_KEY: ${{needs.build-backend-lambda.outputs.object}}
         FRONTEND_WEBSITE_CERTIFICATE: ${{needs.deploy-certificate.outputs.certificate}}
-        VEYPEAR_PRESENTER_BASE: https://portal2.nextdayvideo.com.au/virtual/api
+        VEYPEAR_PRESENTER_BASE: https://portal.nextdayvideo.com.au/virtual/api
       run: |
         ./deploy-deployment.cfn.yaml.sh
 
